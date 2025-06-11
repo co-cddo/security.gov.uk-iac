@@ -6,6 +6,9 @@ on:
     paths:
       - 'dns/*'
   workflow_dispatch:
+permissions:
+      id-token: write   # This is required for requesting the JWT for AWS authentication
+      contents: read    # This is required for actions/checkout
 
 jobs:
   test-and-deploy:
