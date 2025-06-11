@@ -1,0 +1,42 @@
+name: Test and deploy DNS to AWS
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'dns/*'
+  workflow_dispatch:
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+    environment: aws
+    steps:
+      - name: Checkout infrastructure-as-code (public) repo
+        uses: actions/checkout@v3
+        with:
+          repository: co-cddo/security.gov.uk-iac
+          path: security.gov.uk-iac
+
+      - name: Read .terraform-version file
+        id: terraformversion
+        run: echo "tf_version=$(cat security.gov.uk-iac/.terraform-version)" >> $GITHUB_ENV
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.tf_version }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE }}
+          aws-region: eu-west-2
+
+      - name: Deploy DNS to AWS
+        shell: bash
+        run: |
+          cd security.gov.uk-iac/dns/
+          terraform init
+          terraform apply -auto-approve
+        env:
+          TF_VAR_IS_CI: 1

@@ -1,0 +1,8 @@
+**/node_modules
+**/.terraform/
+**/.terraform.lock.hcl
+**/*.zip
+**/*-lock.json
+**/*-build/
+**/*.min.js
+**/.env
