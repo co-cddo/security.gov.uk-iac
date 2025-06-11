@@ -7,6 +7,3 @@ security.gov.uk - Infrastructure as Code
 ![Last commit image](https://img.shields.io/github/last-commit/cabinetoffice/security.gov.uk-iac?style=for-the-badge&logo=github)
 
 Infrastructure as code (Terraform) for the security.gov.uk domain on AWS Route53.
-
-- Pre-production/staging: <https://nonprod.security.gov.uk>
-- Production: <https://www.security.gov.uk>
