@@ -6,7 +6,7 @@ locals {
 
   default_tags = {
     "Service" : "security.gov.uk",
-    "Reference" : "https://github.com/cabinetoffice/security.gov.uk-iac",
+    "Reference" : "https://github.com/co-cddo/security.gov.uk-iac",
   }
 
   extra_low_ttl = 30
