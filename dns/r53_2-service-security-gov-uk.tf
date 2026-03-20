@@ -149,10 +149,10 @@ resource "aws_route53_record" "webcaf-delegated-zone" {
   type            = "NS"
 
   records = [
-    "ns-250.awsdns-31.com.",
-    "ns-1784.awsdns-31.co.uk.",
-    "ns-705.awsdns-24.net.",
-    "ns-1384.awsdns-45.org.",
+    "ns-1454.awsdns-53.org",
+    "ns-1756.awsdns-27.co.uk",
+    "ns-69.awsdns-08.com",
+    "ns-788.awsdns-34.net",
   ]
 }
 
