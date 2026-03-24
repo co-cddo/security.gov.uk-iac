@@ -1,8 +1,8 @@
-resource "aws_route53_zone" "cyber-nonprod-gov-uk" {
+resource "aws_route53_zone" "nonprod-cyber-gov-uk" {
   name = local.nonprod_cyber
 
   tags = merge(local.default_tags, {
-    "Name" : local.nonprod_cyber,
+    "Name" : local.nonprod-cyber,
     "Environment" : "nonprod"
   })
 
@@ -12,7 +12,7 @@ resource "aws_route53_zone" "cyber-nonprod-gov-uk" {
 }
 
 resource "aws_route53_record" "keycloak-nonprod-delegated-zone" {
-  zone_id         = aws_route53_zone.cyber-nonprod-gov-uk.zone_id
+  zone_id         = aws_route53_zone.nonprod-cyber-gov-uk.zone_id
   allow_overwrite = true
   name            = "keycloak.nonprod.security"
   ttl             = local.standard_ttl
