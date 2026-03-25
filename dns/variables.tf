@@ -1,8 +1,10 @@
 data "aws_caller_identity" "current" {}
 
 locals {
-  domain         = "security.gov.uk"
-  nonprod_domain = "nonprod.security.gov.uk"
+  domain          = "security.gov.uk"
+  nonprod_domain  = "nonprod.security.gov.uk"
+  service         = "service.security.gov.uk"
+  np_service      = "nonprod-service.security.gov.uk"
 
   default_tags = {
     "Service" : "security.gov.uk",

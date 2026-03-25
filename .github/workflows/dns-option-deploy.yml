@@ -1,0 +1,93 @@
+name: Test and deploy DNS to AWS
+
+on:
+  push:
+    branches-ignore: 
+      - 'main'
+    paths:
+      - 'dns/*'
+      - '.github/workflows/dns-option-deploy.yml'
+      - '**.tf'
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Run mode (plan or apply)'
+        required: true
+        default: 'plan'
+        type: choice
+        options:
+          - plan
+          - apply
+
+permissions:
+      id-token: write   # This is required for requesting the JWT for AWS authentication
+      contents: read    # This is required for actions/checkout
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      max-parallel: 1
+      fail-fast: true
+      matrix:
+        environment: [staging]
+    environment: aws
+
+    steps:
+      - name: Checkout infrastructure-as-code (public) repo
+        uses: actions/checkout@v3
+        with:
+          repository: co-cddo/security.gov.uk-iac
+          path: security.gov.uk-iac
+
+      - name: Read .terraform-version file
+        id: terraformversion
+        run: echo "tf_version=$(cat security.gov.uk-iac/.terraform-version)" >> $GITHUB_ENV
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.tf_version }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE }}
+          aws-region: eu-west-2
+
+      # ------------ TERRAFORM INIT (uses lockfile) ------------
+      - name: Terraform Init
+        run: terraform init
+        working-directory: dns/
+
+      - name: Terraform Format
+        run: terraform fmt -write=false
+        working-directory: dns/
+
+      - name: Terraform Validate
+        run: |
+          terraform workspace select $TERRAFORM_WORKSPACE_STG
+          terraform validate
+        working-directory: dns/
+          
+      # ------------ PLAN ------------
+      - name: Terraform Plan
+        if: ${{ github.event.inputs.action == 'plan' }}
+        shell: bash
+        run: |
+          cd security.gov.uk-iac/dns/
+          terraform init
+          terraform plan
+        env:
+          TF_VAR_IS_CI: 1
+      - name: Deploy DNS to AWS
+        if: ${{ github.event.inputs.action == 'apply' }}
+        shell: bash
+        run: |
+          cd security.gov.uk-iac/dns/
+          terraform init
+          terraform apply -auto-approve
+        env:
+          TF_VAR_IS_CI: 1
