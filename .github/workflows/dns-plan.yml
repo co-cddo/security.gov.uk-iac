@@ -2,19 +2,14 @@ name: PLAN only for DNS to AWS
 
 on:
   push:
-    branches-ignore: 
-      - 'main'
-    tags:
-      - 'plan'
+    branches-ignore: [main]
     paths:
       - 'dns/*'
       - '.github/workflows/dns-option-deploy.yml'
-      - '**.tf'
   workflow_dispatch:
 permissions:
       id-token: write   # This is required for requesting the JWT for AWS authentication
       contents: read    # This is required for actions/checkout
-
 jobs:
   test-and-deploy:
     runs-on: ubuntu-latest
@@ -40,35 +35,12 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE }}
           aws-region: eu-west-2
 
-      # ------------ TERRAFORM INIT (uses lockfile) ------------
-      - name: Terraform Init
+      # ------------ PLAN ------------
+      - name: Terraform Plan
         shell: bash
         run: |
           cd security.gov.uk-iac/dns/
           terraform init
-
-      - name: Terraform Format
-        shell: bash
-        run: |
-          cd security.gov.uk-iac/dns/
-          terraform fmt -write=false
-        env:
-          TF_VAR_IS_CI: 1
-
-      - name: Terraform Validate
-        shell: bash
-        run: |
-          cd security.gov.uk-iac/dns/
-          terraform fmt -write=false
-        env:
-          TF_VAR_IS_CI: 1
-          
-      # ------------ PLAN ------------
-      - name: Terraform Plan
-        if: ${{ github.event.inputs.action == 'plan' }}
-        shell: bash
-        run: |
-          cd security.gov.uk-iac/dns/
           terraform plan
         env:
           TF_VAR_IS_CI: 1
