@@ -1,36 +1,24 @@
-name: Run PLAN only for DNS to AWS
+name: PLAN only for DNS to AWS
 
 on:
   push:
     branches-ignore: 
       - 'main'
+    tags:
+      - 'plan'
     paths:
       - 'dns/*'
       - '.github/workflows/dns-option-deploy.yml'
       - '**.tf'
   workflow_dispatch:
-    inputs:
-      action:
-        description: 'Run mode (plan)'
-        required: true
-        default: 'plan'
-        type: choice
-        options:
-          - plan
+permissions:
+      id-token: write   # This is required for requesting the JWT for AWS authentication
+      contents: read    # This is required for actions/checkout
 
 jobs:
   test-and-deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-    strategy:
-      max-parallel: 1
-      fail-fast: true
-      matrix:
-        environment: [staging]
     environment: aws
-
     steps:
       - name: Checkout infrastructure-as-code (public) repo
         uses: actions/checkout@v3
@@ -54,18 +42,26 @@ jobs:
 
       # ------------ TERRAFORM INIT (uses lockfile) ------------
       - name: Terraform Init
-        run: terraform init
-        working-directory: dns/
+        shell: bash
+        run: |
+          cd security.gov.uk-iac/dns/
+          terraform init
 
       - name: Terraform Format
-        run: terraform fmt -write=false
-        working-directory: dns/
+        shell: bash
+        run: |
+          cd security.gov.uk-iac/dns/
+          terraform fmt -write=false
+        env:
+          TF_VAR_IS_CI: 1
 
       - name: Terraform Validate
+        shell: bash
         run: |
-          terraform workspace select $TERRAFORM_WORKSPACE_STG
-          terraform validate
-        working-directory: dns/
+          cd security.gov.uk-iac/dns/
+          terraform fmt -write=false
+        env:
+          TF_VAR_IS_CI: 1
           
       # ------------ PLAN ------------
       - name: Terraform Plan
@@ -73,7 +69,6 @@ jobs:
         shell: bash
         run: |
           cd security.gov.uk-iac/dns/
-          terraform init
           terraform plan
         env:
           TF_VAR_IS_CI: 1
