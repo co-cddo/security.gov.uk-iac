@@ -11,13 +11,13 @@ on:
   workflow_dispatch:
     inputs:
       action:
-        description: 'Run mode (plan or apply)'
+        description: 'Run mode (plan)'
         required: true
         default: 'plan'
         type: choice
         options:
           - plan
-          - apply
+
 
 permissions:
       id-token: write   # This is required for requesting the JWT for AWS authentication
@@ -82,13 +82,4 @@ jobs:
           terraform plan
         env:
           TF_VAR_IS_CI: 1
-      # ------------ APPLY ------------
-      - name: Deploy DNS to AWS
-        if: ${{ github.event.inputs.action == 'apply' }}
-        shell: bash
-        run: |
-          cd security.gov.uk-iac/dns/
-          terraform init
-##          terraform apply -auto-approve
-        env:
-          TF_VAR_IS_CI: 1
+
