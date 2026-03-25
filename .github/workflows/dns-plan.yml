@@ -1,4 +1,4 @@
-name: Test and deploy DNS to AWS
+name: Run PLAN only for DNS to AWS
 
 on:
   push:
