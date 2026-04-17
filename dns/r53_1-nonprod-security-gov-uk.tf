@@ -59,9 +59,9 @@ resource "aws_route53_record" "cape-nonprod-delegated-zone" {
   type            = "NS"
 
   records = [
-    "ns-0.awsdns-13.net.",
-    "ns-6.awsdns-40.com.",
-    "ns-7.awsdns-14.org.",
-    "ns-8.awsdns-62.co.uk."
+    "ns-716.awsdns-25.net.",
+    "ns-1224.awsdns-25.org.",
+    "ns-1816.awsdns-35.co.uk.",
+    "ns-429.awsdns-53.com."
   ]
 }
