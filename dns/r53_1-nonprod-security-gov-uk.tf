@@ -35,3 +35,33 @@ module "np-aws-r53-parked-domain" {
     "security_policy=https://vulnerability-reporting.service.security.gov.uk/.well-known/security.txt"
   ]
 }
+
+resource "aws_route53_record" "keycloak-nonprod-delegated-zone" {
+  zone_id         = aws_route53_zone.np-sec-gov-uk.zone_id
+  allow_overwrite = true
+  name            = "keycloak.nonprod-service"
+  ttl             = local.standard_ttl
+  type            = "NS"
+
+  records = [
+    "ns-754.awsdns-30.net.",
+    "ns-1416.awsdns-49.org.",
+    "ns-1681.awsdns-18.co.uk.",
+    "ns-66.awsdns-08.com."
+  ]
+}
+
+resource "aws_route53_record" "cape-nonprod-delegated-zone" {
+  zone_id         = aws_route53_zone.np-sec-gov-uk.zone_id
+  allow_overwrite = true
+  name            = "cape.nonprod-service"
+  ttl             = local.standard_ttl
+  type            = "NS"
+
+  records = [
+    "ns-716.awsdns-25.net.",
+    "ns-1224.awsdns-25.org.",
+    "ns-1816.awsdns-35.co.uk.",
+    "ns-429.awsdns-53.com."
+  ]
+}
