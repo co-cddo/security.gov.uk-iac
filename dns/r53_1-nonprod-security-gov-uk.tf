@@ -39,7 +39,7 @@ module "np-aws-r53-parked-domain" {
 resource "aws_route53_record" "keycloak-nonprod-delegated-zone" {
   zone_id         = aws_route53_zone.np-sec-gov-uk.zone_id
   allow_overwrite = true
-  name            = "keycloak.nonprod-service"
+  name            = "keycloak"
   ttl             = local.standard_ttl
   type            = "NS"
 
@@ -54,7 +54,7 @@ resource "aws_route53_record" "keycloak-nonprod-delegated-zone" {
 resource "aws_route53_record" "cape-nonprod-delegated-zone" {
   zone_id         = aws_route53_zone.np-sec-gov-uk.zone_id
   allow_overwrite = true
-  name            = "cape.nonprod-service"
+  name            = "cape"
   ttl             = local.standard_ttl
   type            = "NS"
 
