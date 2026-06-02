@@ -65,3 +65,18 @@ resource "aws_route53_record" "cape-nonprod-delegated-zone" {
     "ns-429.awsdns-53.com."
   ]
 }
+
+resource "aws_route53_record" "govwatch2-nonprod-delegated-zone" {
+  zone_id         = aws_route53_zone.np-sec-gov-uk.zone_id
+  allow_overwrite = true
+  name            = "govwatch2"
+  ttl             = local.standard_ttl
+  type            = "NS"
+
+  records = [
+    "ns-1622.awsdns-10.co.uk.",
+    "ns-770.awsdns-32.net",
+    "ns-1082.awsdns-07.org.",
+    "ns-325.awsdns-40.com."
+  ]
+}
