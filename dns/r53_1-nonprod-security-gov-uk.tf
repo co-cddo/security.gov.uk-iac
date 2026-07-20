@@ -80,3 +80,18 @@ resource "aws_route53_record" "govwatch2-nonprod-delegated-zone" {
     "ns-325.awsdns-40.com."
   ]
 }
+
+resource "aws_route53_record" "govuk-nonprod-delegated-zone" {
+  zone_id         = aws_route53_zone.np-sec-gov-uk.zone_id
+  allow_overwrite = true
+  name            = "govuk"
+  ttl             = local.standard_ttl
+  type            = "NS"
+
+  records = [
+    "ns-332.awsdns-41.com.",
+    "ns-1867.awsdns-41.co.uk.",
+    "ns-615.awsdns-12.net.",
+    "ns-1473.awsdns-56.org."
+  ]
+}
