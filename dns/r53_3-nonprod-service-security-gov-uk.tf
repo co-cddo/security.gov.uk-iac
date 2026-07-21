@@ -114,3 +114,19 @@ resource "aws_route53_record" "assemblyline-nonprod-delegated-zone" {
     "ns-2038.awsdns-62.co.uk."
   ]
 }
+
+resource "aws_route53_record" "checker-nonprod-delegated-zone" {
+  zone_id         = aws_route53_zone.sec-gov-uk.zone_id
+  allow_overwrite = true
+  name            = "checker.nonprod-service"
+  ttl             = local.standard_ttl
+  type            = "NS"
+
+  records = [
+    "ns-538.awsdns-03.net.",
+    "ns-2022.awsdns-60.co.uk.",
+    "ns-432.awsdns-54.com.",
+    "ns-1097.awsdns-09.org."
+  ]
+}
+
