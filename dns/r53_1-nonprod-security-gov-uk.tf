@@ -66,6 +66,23 @@ resource "aws_route53_record" "cape-nonprod-delegated-zone" {
   ]
 }
 
+resource "aws_route53_record" "superset-nonprod-delegated-zone" {
+  zone_id         = aws_route53_zone.np-sec-gov-uk.zone_id
+  allow_overwrite = true
+  name            = "superset"
+  ttl             = local.standard_ttl
+  type            = "NS"
+
+  records = [
+    "ns-285.awsdns-35.com.",
+    "ns-1595.awsdns-07.co.uk.",
+    "ns-1408.awsdns-48.org.",
+    "ns-965.awsdns-56.net."
+  ]
+}
+
+
+
 resource "aws_route53_record" "govwatch2-nonprod-delegated-zone" {
   zone_id         = aws_route53_zone.np-sec-gov-uk.zone_id
   allow_overwrite = true
