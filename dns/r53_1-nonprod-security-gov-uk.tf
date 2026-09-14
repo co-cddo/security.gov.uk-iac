@@ -98,17 +98,17 @@ resource "aws_route53_record" "govwatch2-nonprod-delegated-zone" {
   ]
 }
 
-resource "aws_route53_record" "wagtail-govuk-nonprod-delegated-zone" {
+resource "aws_route53_record" "cyber-profession-nonprod-delegated-zone" {
   zone_id         = aws_route53_zone.np-sec-gov-uk.zone_id
   allow_overwrite = true
-  name            = "wagtail-govuk"
+  name            = "cyber-profession"
   ttl             = local.standard_ttl
   type            = "NS"
 
   records = [
-    "ns-1088.awsdns-08.org.",
-    "ns-835.awsdns-40.net.",
-    "ns-1952.awsdns-52.co.uk.",
-    "ns-74.awsdns-09.com."
+    "ns-1230.awsdns-25.org.",
+    "ns-544.awsdns-04.net.",
+    "ns-1708.awsdns-21.co.uk.",
+    "ns-489.awsdns-61.com."
   ]
 }
