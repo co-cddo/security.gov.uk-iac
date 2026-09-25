@@ -186,3 +186,18 @@ resource "aws_route53_record" "opencti-delegated-zone" {
     "ns-552.awsdns-05.net."
   ]
 }
+
+#resource "aws_route53_record" "gcusso-delegated-zone" {
+#  zone_id         = aws_route53_zone.sec-gov-uk.zone_id
+#  allow_overwrite = true
+#  name            = "gcusso.service"
+#  ttl             = local.standard_ttl
+#  type            = "NS"
+#
+#  records = [
+#    "ns-1625.awsdns-00.co.uk.",
+#    "ns-441.awsdns-00.com.",
+#    "ns-1187.awsdns-00.org.",
+#    "ns-552.awsdns-00.net."
+#  ]
+#}
