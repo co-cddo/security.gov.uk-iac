@@ -114,3 +114,18 @@ resource "aws_route53_record" "assemblyline-nonprod-delegated-zone" {
     "ns-2038.awsdns-62.co.uk."
   ]
 }
+
+resource "aws_route53_record" "gcusso-nonprod-delegated-zone" {
+  zone_id         = aws_route53_zone.sec-gov-uk.zone_id
+  allow_overwrite = true
+  name            = "gcusso.nonprod-service"
+  ttl             = local.standard_ttl
+  type            = "NS"
+
+  records = [
+    "ns-620.awsdns-.net.",
+    "ns-326.awsdns-.com.",
+    "ns-1137.awsdns-.org.",
+    "ns-2038.awsdns-.co.uk."
+  ]
+}
