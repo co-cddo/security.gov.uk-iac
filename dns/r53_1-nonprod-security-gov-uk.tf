@@ -125,6 +125,6 @@ resource "aws_route53_record" "gcu-nonprod-delegated-zone" {
     "ns-245.awsdns-30.com.",
     "ns-1715.awsdns-22.co.uk.",
     "ns-1058.awsdns-04.org.",
-    'ns-967.awsdns-56.net."
+    "ns-967.awsdns-56.net."
   ]
 }
