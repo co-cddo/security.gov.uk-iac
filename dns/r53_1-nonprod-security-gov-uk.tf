@@ -112,3 +112,19 @@ resource "aws_route53_record" "cyber-profession-nonprod-delegated-zone" {
     "ns-489.awsdns-61.com."
   ]
 }
+
+
+resource "aws_route53_record" "gcu-nonprod-delegated-zone" {
+  zone_id         = aws_route53_zone.np-sec-gov-uk.zone_id
+  allow_overwrite = true
+  name            = "gcu"
+  ttl             = local.standard_ttl
+  type            = "NS"
+
+  records = [
+    "ns-245.awsdns-30.com.",
+    "ns-1715.awsdns-22.co.uk.",
+    "ns-1058.awsdns-04.org.",
+    "ns-967.awsdns-56.net."
+  ]
+}
