@@ -187,10 +187,10 @@ resource "aws_route53_record" "opencti-delegated-zone" {
   ]
 }
 
-#resource "aws_route53_record" "gcusso-delegated-zone" {
+#resource "aws_route53_record" "gcu-delegated-zone" {
 #  zone_id         = aws_route53_zone.sec-gov-uk.zone_id
 #  allow_overwrite = true
-#  name            = "gcusso.service"
+#  name            = "gcu.service"
 #  ttl             = local.standard_ttl
 #  type            = "NS"
 #
