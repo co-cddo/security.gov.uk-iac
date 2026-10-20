@@ -122,9 +122,25 @@ resource "aws_route53_record" "gcu-nonprod-delegated-zone" {
   type            = "NS"
 
   records = [
-    "ns-1430.awsdns-50.org.",
-    "ns-895.awsdns-47.net.",
-    "ns-1859.awsdns-40.co.uk.",
-    "ns-87.awsdns-10.com."
+    "ns-107.awsdns-50.org.",
+    "ns-960.awsdns-47.net.",
+    "ns-1345.awsdns-40.co.uk.",
+    "ns-1859.awsdns-10.com."
   ]
 }
+
+resource "aws_route53_record" "dfg-nonprod-delegated-zone" {
+  zone_id         = aws_route53_zone.np-sec-gov-uk.zone_id
+  allow_overwrite = true
+  name            = "dfg"
+  ttl             = local.standard_ttl
+  type            = "NS"
+
+  records = [
+    "ns-124.awsdns-15.com",
+    "ns-1295.awsdns-33.org",
+    "ns-2009.awsdns-59.co.uk",
+    "ns-635.awsdns-15.net",
+  ]
+}
+
