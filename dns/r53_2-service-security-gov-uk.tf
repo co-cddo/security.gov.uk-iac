@@ -79,21 +79,6 @@ resource "aws_route53_record" "vrs-prod-ds" {
   ]
 }
 
-resource "aws_route53_record" "vuln-scan-delegated-zone" {
-  zone_id         = aws_route53_zone.sec-gov-uk.zone_id
-  allow_overwrite = true
-  name            = "vulnerability-scanning.service"
-  ttl             = local.standard_ttl
-  type            = "NS"
-
-  records = [
-    "ns-1505.awsdns-60.org.",
-    "ns-1738.awsdns-25.co.uk.",
-    "ns-862.awsdns-43.net.",
-    "ns-434.awsdns-54.com.",
-  ]
-}
-
 resource "aws_route53_record" "sso-delegated-zone" {
   zone_id         = aws_route53_zone.sec-gov-uk.zone_id
   allow_overwrite = true
