@@ -122,10 +122,10 @@ resource "aws_route53_record" "gcu-nonprod-delegated-zone" {
   type            = "NS"
 
   records = [
-    "ns-107.awsdns-50.org.",
-    "ns-960.awsdns-47.net.",
+    "ns-107.awsdns-13.org.",
+    "ns-960.awsdns-56.net.",
     "ns-1345.awsdns-40.co.uk.",
-    "ns-1859.awsdns-10.com."
+    "ns-1859.awsdns-40.com."
   ]
 }
 
