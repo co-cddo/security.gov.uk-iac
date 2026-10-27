@@ -8,6 +8,7 @@ resource "aws_route53_record" "hbc-email-records" {
 
   records = [
     "v=spf1 include:spf.protection.outlook.com -all",
-    "v=DMARC1; p=reject; fo=1; pct=100; rua=mailto:DMARC-ics@ics.gov.uk,mailto:dmarc-rua@dmarc.service.gov.uk; ruf=mailto:DMARC-ics@ics.gov.uk"
+    "v=DMARC1; p=reject; fo=1; pct=100; rua=mailto:DMARC-ics@ics.gov.uk,mailto:dmarc-rua@dmarc.service.gov.uk; ruf=mailto:DMARC-ics@ics.gov.uk",
+    "MS=ms81320579"
   ]
 }
