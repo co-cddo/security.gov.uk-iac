@@ -23,7 +23,7 @@ resource "aws_route53_record" "hbc-MX-records" {
   type            = "MX"
 
   records = [
-    "hbc-security-gov-uk.mail.protection.outlook.com"
+    "0 hbc-security-gov-uk.mail.protection.outlook.com"
   ]
 }
 
