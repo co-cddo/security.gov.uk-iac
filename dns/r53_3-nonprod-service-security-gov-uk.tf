@@ -28,6 +28,21 @@ resource "aws_route53_record" "bimi-nonprod-delegated-zone" {
   ]
 }
 
+resource "aws_route53_record" "litellm-nonprod-delegated-zone" {
+  zone_id         = aws_route53_zone.sec-gov-uk.zone_id
+  allow_overwrite = true
+  name            = "litellm.nonprod-service"
+  ttl             = local.standard_ttl
+  type            = "NS"
+
+  records = [
+   "ns-1466.awsdns-55.org.",
+   "ns-1621.awsdns-10.co.uk.",
+   "ns-728.awsdns-27.net.",
+   "ns-490.awsdns-61.com.",
+  ]
+}
+
 resource "aws_route53_record" "vuln-report-nonprod-delegated-zone" {
   zone_id         = aws_route53_zone.sec-gov-uk.zone_id
   allow_overwrite = true
