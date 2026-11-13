@@ -36,10 +36,10 @@ resource "aws_route53_record" "litellm-nonprod-delegated-zone" {
   type            = "NS"
 
   records = [
-   "ns-1466.awsdns-55.org.",
-   "ns-1621.awsdns-10.co.uk.",
-   "ns-728.awsdns-27.net.",
-   "ns-490.awsdns-61.com.",
+   "ns-1121.awsdns-12.org.",
+   "ns-1764.awsdns-28.co.uk.",
+   "ns-661.awsdns-18.net.",
+   "ns-29.awsdns-03.com.",
   ]
 }
 
