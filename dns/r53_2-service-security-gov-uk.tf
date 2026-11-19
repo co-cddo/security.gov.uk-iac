@@ -201,3 +201,18 @@ resource "aws_route53_record" "gcu-delegated-zone" {
     "ns-1026.awsdns-00.org."
   ]
 }
+
+resource "aws_route53_record" "litellm-prod-delegated-zone" {
+  zone_id         = aws_route53_zone.sec-gov-uk.zone_id
+  allow_overwrite = true
+  name            = "litellm.service"
+  ttl             = local.standard_ttl
+  type            = "NS"
+
+  records = [
+    "ns-108.awsdns-13.com.",
+    "ns-1242.awsdns-27.org.",
+    "ns-1745.awsdns-26.co.uk.",
+    "ns-950.awsdns-54.net."
+  ]
+}
