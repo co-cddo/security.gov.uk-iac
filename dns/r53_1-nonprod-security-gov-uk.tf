@@ -105,12 +105,12 @@ resource "aws_route53_record" "airflow-nonprod-delegated-zone" {
   ttl             = local.standard_ttl
   type            = "NS"
 
-  # TODO: the NameServers output of AirflowDnsStack in PLATFORM_DATA_DEV (uk-gov-cyber/airflow-iac).
+  # AirflowDnsStack in PLATFORM_DATA_DEV (uk-gov-cyber/airflow-iac).
   records = [
-    "ns-TODO-1.awsdns-00.com.",
-    "ns-TODO-2.awsdns-00.net.",
-    "ns-TODO-3.awsdns-00.org.",
-    "ns-TODO-4.awsdns-00.co.uk."
+    "ns-2029.awsdns-61.co.uk.",
+    "ns-1192.awsdns-21.org.",
+    "ns-247.awsdns-30.com.",
+    "ns-635.awsdns-15.net."
   ]
 }
 
