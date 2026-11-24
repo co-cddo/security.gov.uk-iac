@@ -98,6 +98,22 @@ resource "aws_route53_record" "govwatch2-nonprod-delegated-zone" {
   ]
 }
 
+resource "aws_route53_record" "airflow-nonprod-delegated-zone" {
+  zone_id         = aws_route53_zone.np-sec-gov-uk.zone_id
+  allow_overwrite = true
+  name            = "airflow"
+  ttl             = local.standard_ttl
+  type            = "NS"
+
+  # TODO: the NameServers output of AirflowDnsStack in PLATFORM_DATA_DEV (uk-gov-cyber/airflow-iac).
+  records = [
+    "ns-TODO-1.awsdns-00.com.",
+    "ns-TODO-2.awsdns-00.net.",
+    "ns-TODO-3.awsdns-00.org.",
+    "ns-TODO-4.awsdns-00.co.uk."
+  ]
+}
+
 resource "aws_route53_record" "cyber-profession-nonprod-delegated-zone" {
   zone_id         = aws_route53_zone.np-sec-gov-uk.zone_id
   allow_overwrite = true
