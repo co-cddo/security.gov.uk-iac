@@ -98,6 +98,22 @@ resource "aws_route53_record" "govwatch2-nonprod-delegated-zone" {
   ]
 }
 
+resource "aws_route53_record" "airflow-nonprod-delegated-zone" {
+  zone_id         = aws_route53_zone.np-sec-gov-uk.zone_id
+  allow_overwrite = true
+  name            = "airflow"
+  ttl             = local.standard_ttl
+  type            = "NS"
+
+  # AirflowDnsStack in PLATFORM_DATA_DEV (uk-gov-cyber/airflow-iac).
+  records = [
+    "ns-2029.awsdns-61.co.uk.",
+    "ns-1192.awsdns-21.org.",
+    "ns-247.awsdns-30.com.",
+    "ns-635.awsdns-15.net."
+  ]
+}
+
 resource "aws_route53_record" "cyber-profession-nonprod-delegated-zone" {
   zone_id         = aws_route53_zone.np-sec-gov-uk.zone_id
   allow_overwrite = true
