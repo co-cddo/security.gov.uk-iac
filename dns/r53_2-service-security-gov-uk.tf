@@ -109,6 +109,22 @@ resource "aws_route53_record" "sso-delegated-zone" {
   ]
 }
 
+# DS for the sso.service zone, managed by the Internal Access (sso-service) team.
+# Two KSKs: an active key and a pre-published standby, so an emergency KSK
+# switch needs no change here. Coordinate with that team before changing these.
+resource "aws_route53_record" "sso-prod-ds" {
+  zone_id         = aws_route53_zone.sec-gov-uk.zone_id
+  allow_overwrite = true
+  name            = "sso.service"
+  ttl             = local.standard_ttl
+  type            = "DS"
+
+  records = [
+    "25851 13 2 CCC248E15056FF6540B13E89614F74B1DF12B37849C4B0F218CA6F5A2CA93533", # prod_sso_primary
+    "3942 13 2 BBAAA203A563AACF755142DBC5D6935B9E082A83B2076EFCC3A821EB83165A1A",  # prod_sso_secondary (standby)
+  ]
+}
+
 # -------------
 # GC3: Internet listener zones
 resource "aws_route53_record" "internet-listener-delegated-zone" {
